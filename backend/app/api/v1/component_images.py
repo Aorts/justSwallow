@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends
 from fastapi.responses import Response
 import io
 
-from hermesapi import models
+from app import models
 from .. import schemas
 from .. import core
 

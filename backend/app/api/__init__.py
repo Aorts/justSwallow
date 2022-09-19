@@ -15,10 +15,10 @@ origins = ["http://localhost:3000", "localhost:3000"]
 
 
 def create_app():
-    environment = os.getenv("HERMES_ENV") or "development"
+    environment = os.getenv("SWALLOW_ENV") or "development"
     settings = config.get_config(environment)
 
-    app = FastAPI(title="Hermes API")
+    app = FastAPI(title="Swallow API")
 
     register_routers(app)
 

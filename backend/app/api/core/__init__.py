@@ -8,7 +8,7 @@ def get_jwt_handler():
     global jwt_handler
 
     if not jwt_handler:
-        from hermesapi.config import settings
+        from app.config import settings
 
         jwt_handler = jwt_util.JWTUtil(
             settings.JWT_SECRET_KEY,

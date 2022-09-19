@@ -3,8 +3,8 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
 from pydantic import ValidationError
 
-from hermesapi import models
-from hermesapi.config import settings
+from app import models
+from app.config import settings
 
 reusable_oauth2 = OAuth2PasswordBearer(tokenUrl="/v1/authentication/")
 

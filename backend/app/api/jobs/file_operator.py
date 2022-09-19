@@ -3,8 +3,8 @@ import json
 import datetime
 import pathlib
 import zipfile
-from hermesapi.api.utils import metadata_generators
-from hermesapi import models
+from app.api.utils import metadata_generators
+from app import models
 
 
 class FileOperator:

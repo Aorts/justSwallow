@@ -9,7 +9,7 @@ import os
 import redis
 from rq import Worker, Queue, Connection, SimpleWorker
 
-from hermesapi import models
+from app import models
 
 import logging
 

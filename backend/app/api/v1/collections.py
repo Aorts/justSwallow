@@ -4,7 +4,7 @@ from fastapi.responses import Response
 import datetime
 import pathlib
 
-from hermesapi import models, config
+from app import models, config
 from .. import schemas
 from .. import core
 

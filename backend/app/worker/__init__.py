@@ -4,7 +4,7 @@ import os
 
 
 def create_server():
-    environment = os.getenv("HERMES_ENV") or "development"
+    environment = os.getenv("SWALLOW_ENV") or "development"
     settings = get_config(environment)
     server = WorkerServer(settings)
 

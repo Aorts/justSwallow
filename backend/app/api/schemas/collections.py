@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 import datetime
 
-from hermesapi.api.schemas import base, users
+from app.api.schemas import base, users
 
 
 class BasedCollectionSchema(BaseModel):
@@ -26,7 +26,6 @@ class CollectionUpdatedSchema(CollectionCreatedSchema):
 
 
 class CollectionSchema(base.BaseSchema, BasedCollectionSchema):
-    # owner: users.UserOutSchema | None
     file_token_cid: str | None
     file_json_token_cid: str | None
     generated_trait: int | None
@@ -37,8 +36,6 @@ class CollectionSchema(base.BaseSchema, BasedCollectionSchema):
 
 
 class CollectionOutSchema(base.BaseSchema, BasedCollectionSchema):
-    # file_api_key: None
-    # file_api_secret: None
     pass
 
 

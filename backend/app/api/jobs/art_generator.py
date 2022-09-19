@@ -1,4 +1,4 @@
-from hermesapi import models
+from app import models
 
 import pathlib
 from PIL import Image
@@ -16,23 +16,11 @@ class SimpleImageGenerator:
         self.MAX_TRY = 1000
 
     def create_image(self, image_id, components):
-        # img = Image.new(
-        #     "RGBA",
-        #     components[0].image.size,
-        #     (255, 0, 0, 0),
-        # )
-
-        # for component in components:
-        #     data = component.image.read()
-        #     new_layer_img = Image.open(io.BytesIO(data))
-        #     img = Image.alpha_composite(img, new_layer_img)
-        # print("-->", components[0].image_layer.name, components[0].name)
         components[0].image.seek(0)
         data = components[0].image.read()
         img = Image.open(io.BytesIO(data))
         image_class = components[0].component_class
         for component in components[1:]:
-            # print("x->", component.image_layer.name, component.name)
             component.image.seek(0)
             data = component.image.read()
             new_layer_img = Image.open(io.BytesIO(data))
@@ -42,9 +30,6 @@ class SimpleImageGenerator:
         img.save(img_bytes, format="PNG")
 
         name = f"{image_id}"
-
-        # debug
-        # img.save(f"/tmp/imgs/{name}.png", format="PNG")
 
         art_image = models.ArtImage(
             name=f"#{name}",
@@ -63,11 +48,6 @@ class SimpleImageGenerator:
         if len(layers) == 0:
             return posible_image
 
-        # posible_image = len(layers[0])
-        # for im in layers[1:]:
-        #     posible_image *= len(im)
-
-        # return posible_image
         for l, components in layers.items():
             counter = 0
             for k, component in components.items():
@@ -88,7 +68,6 @@ class SimpleImageGenerator:
 
         for layer in layers:
             component_image = random.choice(layer)
-            # may remove
             if not component_image:
                 continue
 
@@ -104,11 +83,9 @@ class SimpleImageGenerator:
         if art_image:
             return False
 
-        # debug
         for c in components:
             print("->", c.image_layer.name, ":", c.name, end=" ")
         print()
-        # enddebug
 
         return True
 
@@ -142,9 +119,7 @@ class SimpleImageGenerator:
         for ai in art_images:
             rarity = 0
             rarity_percent = 0
-            # print("ai ->", ai.name)
             for component in ai.components:
-                # print(component.image_layer.name, component.name, component.rarity)
                 rarity += component.rarity
                 rarity_percent += component.rarity_percent
 
@@ -152,13 +127,6 @@ class SimpleImageGenerator:
             ai.rarity = rarity
             ai.name = f"{ai.filename}"
             ai.description = f"#{ai.filename}"
-            # ai.image.filename = f"{counter}.png"
-            # buffer_image = io.BytesIO(ai.image.read())
-            # ai.image.replace(
-            #     buffer_image,
-            #     filename=f"{counter}.png",
-            #     content_type=ai.image.content_type,
-            # )
             counter += 1
             print(ai.name, ai.image.filename)
             ai.save()
@@ -212,19 +180,10 @@ class SimpleImageGenerator:
                     continue
 
                 image_components[image_component.id] = data
-            # if not il.required:
-            #     image_components.append(None)
-
-            # if len(image_components) == 1:
-            #     if image_components[0] == None:
-            #         continue
 
             if len(image_components) > 0:
                 layers[il] = image_components
 
-            # if total < amount:
-            #     data = dict(quota=amount - total, count=0, component=None)
-            #     image_components[None] = data
             if not il.required:
                 allowed_none = 20
                 quota = amount - total
@@ -242,7 +201,6 @@ class SimpleImageGenerator:
             component_layers.append(list(l.values()))
 
         while counter < until:
-            # print("xxx", counter, until)
             components = None
             ccomponents = []
             for i in range(self.MAX_TRY):
@@ -273,9 +231,6 @@ class SimpleImageGenerator:
 
             component_layers[:] = [l for l in component_layers if l]
 
-            # import pprint
-
-            # pprint.pprint(component_layers)
 
     def run(self):
         print(
@@ -288,12 +243,7 @@ class SimpleImageGenerator:
         self.collection_operation.updated_date = datetime.datetime.utcnow()
         self.collection_operation.save()
 
-        # debug
-        # for il in image_layers:
-        #     print(il.name, il.order)
-        # end debug
         component_class = self.collection_operation.parameters.get("generated_class")
-        # layers = self.get_image_layers(component_class)
         layers = self.get_component_quotas(component_class)
 
         possible_image = self.get_posible_image(layers)

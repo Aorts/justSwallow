@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 import datetime
 
-from hermesapi.api.schemas import base, users, collections
+from app.api.schemas import base, users, collections
 
 
 class BasedImageLayerSchema(BaseModel):

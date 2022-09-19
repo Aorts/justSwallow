@@ -4,7 +4,7 @@ import io
 from pydantic import parse_obj_as
 
 
-from hermesapi import models
+from app import models
 from .. import schemas
 from .. import core
 

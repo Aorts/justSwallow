@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 
-from hermesapi import models
+from app import models
 from .. import schemas
 from .. import core
 

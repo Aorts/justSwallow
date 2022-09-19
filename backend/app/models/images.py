@@ -1,7 +1,7 @@
 import mongoengine as me
 import datetime
 import os
-from hermesapi.api.utils import metadata_generators
+from app.api.utils import metadata_generators
 
 
 class ArtImage(me.Document):

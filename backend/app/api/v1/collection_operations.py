@@ -3,11 +3,11 @@ from fastapi import APIRouter, HTTPException, Depends
 import datetime
 
 
-from hermesapi import models, config
-from hermesapi.api import redis_rq
-from hermesapi.api.jobs import art_generator
-from hermesapi.api.jobs import collection_uploader
-from hermesapi.api.jobs import file_operator
+from app import models, config
+from app.api import redis_rq
+from app.api.jobs import art_generator
+from app.api.jobs import collection_uploader
+from app.api.jobs import file_operator
 from .. import schemas
 from .. import core
 

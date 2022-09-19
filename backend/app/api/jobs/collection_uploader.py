@@ -1,7 +1,7 @@
 import requests
 import json
 import datetime
-from hermesapi.api.utils import metadata_generators
+from app.api.utils import metadata_generators
 
 
 class PinataUploader:

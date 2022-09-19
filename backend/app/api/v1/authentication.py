@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Security, Depends
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from fastapi.security import OAuth2PasswordRequestForm
 
-from hermesapi import models
+from app import models
 from .. import schemas
 from .. import core
 

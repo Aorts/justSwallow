@@ -44,7 +44,7 @@ def get_subrouters(directory):
     return routers
 
 
-def register_routers(app, root="hermesapi/api/"):
+def register_routers(app, root="app/api/"):
     prefix = ""
     parent = pathlib.Path(root).absolute()
     routers = get_subrouters(parent)
